@@ -1,3 +1,12 @@
+/*
+ *     bit2.h
+ *     Darius ___, Evren Uluer, 
+ *     1/28/25
+ *     bit2
+ *
+ *     This file holds the interface for a bit map
+ */
+
 #ifndef BIT2_INCLUDED
 #define BIT2_INCLUDED
 
@@ -13,5 +22,6 @@ extern void Bit2_map_row_major(Bit2_T bit2, void apply(
             int row, int col, Bit2_T bit2, int value, void *cl), void *cl);
 extern void Bit2_map_col_major(Bit2_T bit2, void apply(
             int row, int col, Bit2_T bit2, int value, void *cl), void *cl);
+int valid_index(Bit2_T bit2, int row, int col);
 
 #endif
