@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 */
 Bit2_T pbmread(FILE *inputfp)
 {
-    assert(input != NULL);
+    assert(inputfp != NULL);
 
     // get the information of the pbm by using pnmrdr
     Pnmrdr_T rdr = Pnmrdr_new(inputfp);
@@ -93,6 +93,7 @@ Bit2_T pbmread(FILE *inputfp)
         }
     }
 
+    Pnmrdr_free(&rdr);
     return bitmap;
 }
 

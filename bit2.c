@@ -35,7 +35,7 @@ struct Bit2_T {
 Bit2_T Bit2_new(int rows, int cols) 
 {
     assert(rows > 0 && cols > 0);
-    Bit2_T bit2 = malloc(sizeof(bit2)); // malloc space
+    Bit2_T bit2 = malloc(sizeof(*bit2)); // malloc space
     assert(bit2 != NULL);
     bit2->bit_arr = Bit_new(rows * cols); // use hanson bit
     assert( bit2->bit_arr != NULL);
@@ -100,9 +100,10 @@ int Bit2_get(Bit2_T bit2, int row, int col)
 */
 void Bit2_free(Bit2_T *bit2)
 {
-    assert(bit2 != NULL && *bit2 != NULL);
-    Bit_free(&(*bit2)->bit_arr);
-    (*bit2)->bit_arr = NULL;
+    assert(bit2 != NULL || *bit2 != NULL);
+    if ((*bit2)->bit_arr != NULL) { // check before freeing
+        Bit_free(&(*bit2)->bit_arr);
+    }
 
     free(*bit2);
     *bit2 = NULL;
