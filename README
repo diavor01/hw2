@@ -1,12 +1,51 @@
-Darius () & Evren Uluer (euluer01)
+Darius-Stefan Iavorschi (diavor01) & Evren Uluer (euluer01)
+iii project
+2/10/2025
 
-Help Acknowledged: We did not recieve any help on this homework.
 
-Implemented Correctness: Our code has implemented every part of the assingment.
+This project contains several utilities that work with PBM and PGM image files. 
+The utilities include a 2D bit array implementation, a tool to remove 
+edge-connected black pixels from PBM images, an unboxed 2D array 
+abstraction, and a Sudoku board validator that reads a PGM file.
 
-Time Spent: 20hr
+-> File Descriptions
+bit2.c: Implements a 2D bit array structure using Hanson's Bit library. It 
+        provides functions to create, access, modify, and free a 2D bitmap 
+        representation of a PBM file.
 
-Testing files for unblackedges:
+bit2.h: the interface file for bit2.c
+
+unblackedges.c: Reads a PBM file, removes all black pixels that are connected 
+        to the image edges, and writes out the modified image. This file uses 
+        a stack-based approach to identify and process connected black pixels.
+
+uarray2.c: Provides a two-dimensional unboxed array abstraction built on top of a 
+        one-dimensional UArray. This module is used by other parts of 
+        the project (including the Sudoku validator) for matrix operations.
+
+uarray.h: the interface file for uarray2.c
+
+sudoku.c: Reads a PGM file representing a Sudoku board and validates whether the 
+        board is a correct Sudoku solution. The validator checks that every digit 
+        (1–9) appears exactly once per row, column, and 3×3 subgrid.
+
+unit_tests.h: unit tests used to validate check the code's functionality
+
+-> Help Acknowledged: We did not recieve any help on this homework.
+
+-> Implemented Correctness: Our code has implemented every part of the assignment.
+
+
+-> Usage:
+  - The unblackedges program processes a PBM image by removing black pixels 
+    that are connected to the edges.
+    - ./unblackedges [inputfile.pbm]
+  - The sudoku program validates a Sudoku board provided as a PGM file. The 
+    board must be a 9×9 grid with digits between 1 and 9.
+    - ./sudoku [inputfile.pgm]
+
+
+-> Testing files for unblackedges:
 
 test1.pbm: Small testing file where all pixels should turn white
 
@@ -17,3 +56,30 @@ test3.pbm: Small testing file with a checker board pattern
 test4.pbm: Medium testing file with a swirling pattern
 
 test5.pbm: Large random testing file to make sure the program can handle it
+
+-> Testing files for sudoku:
+
+valid_sud.pgm: represents a valid sudoku solution. The exit status must be 0
+
+invalid_sud.pgm: although a valid input, represents an invalid sudoku solution
+
+incorrect_file_format.pgm: contains pixels that are not integers
+
+non_digit_input: contains pixels with values larger than 9
+
+wrong_dim.pgm: although a valid pgm file, it does not have the appropriate 
+          size for a sudoku board
+
+-> Time Spent: 30hr
+
+
+
+
+
+
+
+
+
+
+
+
