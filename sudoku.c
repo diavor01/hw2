@@ -83,6 +83,25 @@ bool check_uniqueness(struct digit value)
     return true;
 }
 
+/*
+ *  name:        contruct_digits_properties
+ *  purpose:     Populate the digits_properties array with the row, column, and 
+ *               box positions of each digit (1-9) in the Sudoku grid.
+ *  arguments:   UArray2_T matrix (9x9 grid of Sudoku digits),
+ *               struct digit *digits_properties 
+ *               (array to store digit properties)
+ *  return type: bool
+ *  effect:      - Iterates over the 9x9 Sudoku grid and records the row, 
+ *               column, and box positions of each digit (1-9) in the 
+ *               digits_properties array.
+ *               - If an invalid digit (not between 1 and 9) is encountered, the
+ *               function prints an error message, frees the digits_properties
+ *               array, and returns false.
+ *  expects:     - matrix is a valid 9x9 grid containing only integers 
+ *               between 1 and 9
+ *               - digits_properties is a pre-allocated array of size 10 
+ *               (indexed 1-9)
+ */
 bool contruct_digits_properties(UArray2_T matrix, 
                                 struct digit *digits_properties)
 {
@@ -96,7 +115,8 @@ bool contruct_digits_properties(UArray2_T matrix,
                                 int s = size[value];
                                 digits_properties[value].row[s] = i;
                                 digits_properties[value].col[s] = j;
-                                digits_properties[value].box[s] = return_box(j - 1, i - 1);
+                                digits_properties[value].box[s] = 
+                                                return_box(j - 1, i - 1);
                                 size[value]++;
                         }
                         else
