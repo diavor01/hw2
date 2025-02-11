@@ -1,6 +1,6 @@
 /*
  *     unblackedges.c
- *     Darius ___, Evren Uluer, 
+ *     Darius-Stefan Iavorschi, Evren Uluer, 
  *     1/28/25
  *     unblackedges
  *
@@ -15,7 +15,7 @@
 #include "pnmrdr.h"
 #include "stack.h"
 
-// These are entries of black pixels to put in a stack.
+/* These are entries of black pixels to put in a stack. */
 typedef struct {
         int row, col;
 } BlackPixels;
@@ -47,7 +47,7 @@ void   edgepix_to_stack(Stack_T pixels, Bit2_T bitmap, int row, int col);
 */
 int main(int argc, char *argv[])
 {   
-        if (argc == 2) { //read from a file   
+        if (argc == 2) { /* read from a file */   
                 FILE *inputfp = fopen(argv[1], "r");
                 assert(inputfp != NULL);
 
@@ -56,15 +56,15 @@ int main(int argc, char *argv[])
                 fclose(inputfp);
                 unblackedges(bitmap);
                 pbmwrite(bitmap);
-                Bit2_free(&bitmap); // free         
-        } else if (argc == 1) { //read from standard input
+                Bit2_free(&bitmap); /* free */         
+        } else if (argc == 1) { /* read from standard input */
                 Bit2_T bitmap = pbmread(stdin);
                 assert(bitmap != NULL);
                 unblackedges(bitmap);
                 pbmwrite(bitmap);
-                Bit2_free(&bitmap); // free
+                Bit2_free(&bitmap); /* free */
         } else {
-                // there should only ever be max two arguments
+                /* there should only ever be max two arguments */
                 printf("Too many arguments\n");
                 exit(EXIT_FAILURE);
         }
@@ -86,13 +86,13 @@ Bit2_T pbmread(FILE *inputfp)
 {
         assert(inputfp != NULL);
 
-        // get the information of the pbm by using pnmrdr
+        /* get the information of the pbm by using pnmrdr */
         Pnmrdr_T rdr = Pnmrdr_new(inputfp);
         Pnmrdr_mapdata map = Pnmrdr_data(rdr);
 
         Bit2_T bitmap = Bit2_new(map.height, map.width);
 
-        // make sure to read the whole file
+        /* make sure to read the whole file */
         for (unsigned row = 0; row < map.height; row++) {
                 for (unsigned col = 0; col < map.width; col++) {
                     int bit = Pnmrdr_get(rdr);
@@ -152,24 +152,24 @@ void swap_color(Stack_T pixels, Bit2_T bitmap)
 void unblackedges(Bit2_T bitmap)
 {
         assert(bitmap != NULL);
-        Stack_T pixels = Stack_new(); // create the stack
+        Stack_T pixels = Stack_new(); /* create the stack */
         int width = Bit2_width(bitmap);
         int height = Bit2_height(bitmap);
 
-        // top and bottom
+        /* top and bottom */
         for (int col = 0; col < width; col++) {
                 edgepix_to_stack(pixels, bitmap, 0, col);
                 edgepix_to_stack(pixels, bitmap, height - 1, col);
         }
 
-        // sides no overlap with the corners
+        /* sides no overlap with the corners */
         for (int row = 1; row < height - 1; row++) {
                 edgepix_to_stack(pixels, bitmap, row, 0);
                 edgepix_to_stack(pixels, bitmap, row, width - 1);
         }
 
-        swap_color(pixels, bitmap); // process our stack
-        Stack_free(&pixels); // free the stack
+        swap_color(pixels, bitmap); /* process our stack */
+        Stack_free(&pixels); /* free the stack */
 }
 
 /*
@@ -186,11 +186,11 @@ void pbmwrite(Bit2_T bitmap)
         int width = Bit2_width(bitmap);
         int height = Bit2_height(bitmap);
 
-        // print the header
+        /* print the header */
         printf("P1\n");
         printf("%d %d\n", width, height);
 
-        // print the data
+        /* print the data */
         for (int row = 0; row < height; row++) {
                 for (int col = 0; col < width; col++) {
                         printf("%d ", Bit2_get(bitmap, row, col));
@@ -224,20 +224,20 @@ void push_pixels(Stack_T pixels, Bit2_T bitmap, int row, int col)
                 assert(connected[i] != NULL);
         }
 
-        connected[0]->row = row - 1; // up
-        connected[0]->col = col; // up
-        connected[1]->row = row + 1; // down
-        connected[1]->col = col;  // down
-        connected[2]->row = row; // left
-        connected[2]->col = col - 1; // left
-        connected[3]->row = row; // right
-        connected[3]->col = col + 1; // right
+        connected[0]->row = row - 1; /* up */
+        connected[0]->col = col; /* up */
+        connected[1]->row = row + 1; /* down */
+        connected[1]->col = col;  /* down */
+        connected[2]->row = row; /* left */
+        connected[2]->col = col - 1; /* left */
+        connected[3]->row = row; /* right */
+        connected[3]->col = col + 1; /* right */
 
-        for (int i = 0; i < 4; i++) { // make sure they're in bounds
+        for (int i = 0; i < 4; i++) { /* make sure they're in bounds */
                 if (valid_index(bitmap, connected[i]->row, connected[i]->col)) {
                         Stack_push(pixels, connected[i]);
                 } else {
-                        free(connected[i]); // free if not
+                        free(connected[i]); /* free if not */
                 }
         }
 }
