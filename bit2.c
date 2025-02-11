@@ -1,6 +1,6 @@
 /*
  *     bit2.c
- *     Darius ___, Evren Uluer, 
+ *     Darius-Stefan Iavorschi, Evren Uluer, 
  *     1/28/25
  *     bit2
  *
@@ -14,7 +14,7 @@
 #include "bit2.h"
 #include "bit.h"
 
-// This struct represents a 2D bitmap using a 1D bit array from Hanson
+/* This struct represents a 2D bitmap using a 1D bit array from Hanson */
 struct Bit2_T {
         int rows;
         int cols;
