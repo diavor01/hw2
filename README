@@ -1,0 +1,19 @@
+Darius () & Evren Uluer (euluer01)
+
+Help Acknowledged: We did not recieve any help on this homework.
+
+Implemented Correctness: Our code has implemented every part of the assingment.
+
+Time Spent: 20hr
+
+Testing files for unblackedges:
+
+test1.pbm: Small testing file where all pixels should turn white
+
+test2.pbm: Small testing file, making sure diagnols are not color swappped
+
+test3.pbm: Small testing file with a checker board pattern
+
+test4.pbm: Medium testing file with a swirling pattern
+
+test5.pbm: Large random testing file to make sure the program can handle it
