@@ -1,6 +1,6 @@
 /*
  *     bit2.h
- *     Darius ___, Evren Uluer, 
+ *     Darius-Stefan Iavorschi, Evren Uluer, 
  *     1/28/25
  *     bit2
  *
